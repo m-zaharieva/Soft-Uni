@@ -7,7 +7,7 @@ function solve(n, k) {
         result.push(redused);
     }
 
-    console.log(result);
+    return result;
 }
 
 solve(8, 2);

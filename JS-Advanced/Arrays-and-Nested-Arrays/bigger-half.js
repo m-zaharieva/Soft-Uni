@@ -3,7 +3,7 @@ function solve(input) {
     let resultLength = Math.ceil(sorted.length / 2);
     let result = sorted.slice(sorted.length - resultLength);
 
-    console.log(result);
+    return result;
 }
 
 solve([4, 7, 2, 5]);
