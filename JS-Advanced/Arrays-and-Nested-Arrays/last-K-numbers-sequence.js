@@ -1,17 +1,9 @@
 function solve(n, k) {
-    n = Number(n);
-    k = Number(k);
-
     let result = [1];
 
     for (let i = 1; i < n; i++) {
-        let dif = i-k;
-        if (dif < 0) {
-            dif = 0;
-        }
-        let temp = result.slice(dif, i);
+        let temp = result.slice(-k);
         let redused = temp.reduce((acc, el) => acc + Number(el), 0);
-        
         result.push(redused);
     }
 
