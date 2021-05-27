@@ -1,14 +1,15 @@
 function solve(array) {
-    let biggerNum = Number.MIN_SAFE_INTEGER;
-
-    let filtered = array.filter(el => {
-        if (el >= biggerNum) {
-            biggerNum = el;
-            return el;
+    let maxNum = Number.MIN_SAFE_INTEGER;
+    let filteredArray = array.reduce((ac, el) => {
+        if (el >= maxNum) {
+            ac.push(el);
+            maxNum = el;
         }
-    });
-console.log(filtered);
-return filtered;
+        return ac;
+    }, []);
+
+
+    return filteredArray;
 }
 
 solve([1, 2, 2, 6, 3, 6, 3, 4]);
