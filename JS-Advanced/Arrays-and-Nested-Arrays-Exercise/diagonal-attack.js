@@ -13,15 +13,31 @@ function solve(array) {
             secondDiagonal += matrix[i][matrix[i].length - 1 - i];
     }
 
-    console.log(mainDiagonal);
-    console.log(secondDiagonal);
+    if (mainDiagonal === secondDiagonal) {
+        matrix.forEach((line, i) => {
+            line.forEach((el, j) => {
+                if (i !== j && i + j !== matrix.length - 1) {
+                    matrix[i][j] = mainDiagonal;
+                }
+            });
+        });
+
+        printMatrix(matrix);    
+    } else {
+        printMatrix(matrix);
+    }
+
+
+    // Function
+    function printMatrix(input) {
+        input.forEach(line => {
+            console.log(line.join(' '));
+        });
+    }
 
 }
 
 
-solve([
-    '5 3 12 3 1',
-    '11 4 23 2 5',
-    '101 12 3 21 10',
-    '1 4 5 2 2',
-    '5 22 33 11 1']);
+solve(['1 1 1',
+'1 1 1',
+'1 1 0']);
