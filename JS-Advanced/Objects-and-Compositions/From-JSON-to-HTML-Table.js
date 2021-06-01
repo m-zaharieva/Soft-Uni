@@ -48,7 +48,7 @@ function fromJsonToHtml(string) {
         }
     });
 
-    return outputArr;
+    // return outputArr;
 }   
 
 
