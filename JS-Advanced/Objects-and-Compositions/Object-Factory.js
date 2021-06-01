@@ -30,16 +30,22 @@ const orders = [
 ];
 
 function factory(library, orders) {
-    let myArray = [];
-    orders.forEach(elementObject => {
-        let currentObject = {};
-        currentObject.name = elementObject.template.name;
-        currentObject[parts].forEach(comand => {
-            currentObject[comand] = [comand]();
+    let result = [];
+
+    for (let i = 0; i < orders.length; i++) {
+        let obj = orders[i].template;
+        orders[i].parts.forEach(part => {
+            obj[part] = library[part];
         });
-    });
+
+        result.push(obj);
+    }
+
+    return result;
 }
 
+console.log(factory(library, orders));
 
-const products = factory(library, orders);
-console.log(products);
+
+
+
