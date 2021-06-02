@@ -3,7 +3,7 @@ function solve(arr) {
 
     arr.forEach(line => {
         let [name, level, items] = line.split(' / ');
-        items = items.split(', ');
+        items = items ? items.split(', ') : [];
         let heroObj = {
             name: name,
             level: Number(level),
