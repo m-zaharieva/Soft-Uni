@@ -1,6 +1,10 @@
 function solve(arr) {
-    let pathern = /([A-Za-z]+)/g;
-    
+    let pattern = /([A-Za-z0-9.]+)/g;
+
+    arr.forEach(line => {
+        let tableRow = line.match(pattern);
+        console.log(tableRow);
+    });
 
 
 }
