@@ -59,7 +59,9 @@ function solve() {
       
       let bestEmployeesElement = document.querySelector('#workers p');
       let result = [];
-      Object.keys(restaurantsCatalogue[bestRestaurantName].employees).forEach(el => {
+      Object.keys(restaurantsCatalogue[bestRestaurantName].employees)
+         .sort((a,b) => restaurantsCatalogue[bestRestaurantName].employees[b] - restaurantsCatalogue[bestRestaurantName].employees[a])
+         .forEach(el => {
          let name = el;
          let sallery = restaurantsCatalogue[bestRestaurantName].employees[name];
          result.push(`Name: ${name} With Salary: ${sallery}`);
