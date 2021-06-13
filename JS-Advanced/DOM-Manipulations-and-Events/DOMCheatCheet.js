@@ -33,7 +33,7 @@ function someFunc() {
 }
 
 // navigating throw DOM when id is not an option
-elem1.previousElementSiSibling; // get the html element, that is right before the elem1
-elem1.nextElementSiSibling; // get the html element, that is right next the elem1
+elem1.previousElementSibling; // get the html element, that is right before the elem1
+elem1.nextElementSibling; // get the html element, that is right next the elem1
 
 
