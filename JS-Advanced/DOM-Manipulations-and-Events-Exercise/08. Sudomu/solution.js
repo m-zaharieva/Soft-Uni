@@ -82,7 +82,6 @@ function solve() {
             if (filtered.length !== colOne.length) {
                 isValid = false;
             }
-
         }
 
         return isValid;
