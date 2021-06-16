@@ -1,0 +1,8 @@
+https://medium.com/@happymishra66/execution-context-in-javascript-319dd72e8e2c
+
+https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99
+
+https://www.freecodecamp.org/news/js-type-coercion-explained-27ba3d9a2839/#:~:text=Type%20coercion%20is%20the%20process,Symbol%20(added%20in%20ES6).
+
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes
+
