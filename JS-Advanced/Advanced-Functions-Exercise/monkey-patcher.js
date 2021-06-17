@@ -1,43 +1,26 @@
 function solution(command) {
     const commands = {
-        'upvote': () => {
-            this.upvotes += 1;
-        }, 
-        'downvote': () => {
-            this.downvotes += 1;
-        }, 
+        'upvote': () => { this.upvotes += 1; }, 
+        'downvote': () => { this.downvotes += 1; }, 
         'score': () => {
             let totalScore = this.upvotes - this.downvotes;
             let totalVotes = this.downvotes + this.upvotes;
             let obfuscation = Math.ceil(Math.max(this.upvotes, this.downvotes) * 0.25);
-            let balance = (this.upvotes / (totalVotes)) * 100;
-            let result = [];
-            let rating ='';
-            
+            let positive = totalVotes > 50 ? this.upvotes + obfuscation : this.upvotes;
+            let negative = totalVotes > 50 ? this.downvotes + obfuscation : this.downvotes;
+
+            let rating = 'new';            
             if (totalVotes < 10) {
                 rating = 'new';
-                result.push(this.upvotes, this.downvotes, totalScore, rating);
-
-            } else if (totalVotes > 50) {
-                let positiveVotes = this.upvotes + obfuscation;
-                let negativeVotes = this.downvotes + obfuscation;
-                result.push(positiveVotes, negativeVotes, totalScore);
-            } else {
-                result.push(this.upvotes, this.downvotes, totalScore);
-            }
-
-            if (totalScore >= 0 && balance > 66) {
+            } else if ((this.upvotes > this.downvotes) && (this.upvotes / totalVotes) > 0.66) {
                 rating = 'hot';
-                result.push(rating);
-            } else if (totalScore >= 0 && totalVotes > 100 && balance <= 66) {
+            } else if ((this.upvotes >= this.downvotes) && totalVotes > 100) {
                 rating = 'controversial';
-                result.push(rating);
-            } else if (totalScore < 0) {
+            } else if (this.downvotes > this.upvotes) {
                 rating = 'unpopular';
-                result.push(rating);
             }
 
-            return result;
+            return [positive, negative, totalScore, rating];
         }
     }
 
@@ -58,6 +41,7 @@ solution.call(post, 'downvote');
 let score = solution.call(post, 'score'); // [127, 127, 0, 'controversial']
 console.log(score);
 solution.call(post, 'downvote');        // (executed 50 time/
+solution.call(post, 'downvote');
 solution.call(post, 'downvote');
 solution.call(post, 'downvote');
 solution.call(post, 'downvote');
