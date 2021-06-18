@@ -65,14 +65,20 @@ function solve() {
     function deleteLine(e) {
         let currentLine = e.target.parentElement;
         currentLine.remove();
-        let clearButton = document.querySelector('#archive > button');
-        clearButton.addEventListener('click', clear);
     }
 
+    let clearButton = document.querySelector('#archive > button');
+        clearButton.addEventListener('click', clear);
+
     function clear(e) {
-        let lis = e.target.parentElement.querySelectorAll('ul li');
+        let lis = document.querySelectorAll('#archive ul li');
         for (const el of lis) {
             el.remove();
         }
     }
+
+    // function clear(e) {
+    //     let clearUl = document.querySelector('#archive ul');
+    //     clearUl.remove();
+    // }
 }
