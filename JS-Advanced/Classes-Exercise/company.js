@@ -1,87 +1,73 @@
 class Company {
     constructor() {
-        this.departments = {};
+        this.departments = new Map();
     }
 
-    static employee() {
-      return  class Employee {
-            constructor(name, salary, position) {
-                this.username = name;
-                this.salary = salary;
-                this.position = position;
-            }
+    static Employee = class Employee {
+        constructor(username, salary, position) {
+            this.username = username;
+            this.salary = salary;
+            this.position = position;
+        }
+    
+        get username() {
+            return this._username;
         }
 
+        set username(value) {
+            this._validateInput(value);
+            this._username = value;
+        }
+
+        get salary() {
+            return this._salary;
+        }
+
+        set salary(value) {
+            this._validateInput(value);
+            if(this.salary < 0) {
+                throw new Error ('Invalid input!');
+            }
+            this._salary = value;
+        }
+
+        get position() {
+            return this._position;
+        }
+
+        set position(value) {
+            this._validateInput(value);
+            this._position = value;
+        }
+
+        _validateInput(value) {
+            if (value === '' || value === undefined || value === null) {
+                throw new Error ('Invalid input!');
+            }
+        }
     }
 
     addEmployee(username, salary, position, department) {
-        if (username == '' || username == null || username == undefined) {
-            throw new Errorr ('Invalid input!');
-        }
-        if (salary == '' || salary == null || salary == undefined || salary < 0) {
-            throw new Errorr ('Invalid input!');
-        }
-        if (position == '' || position == null || position == undefined) {
-            throw new Errorr ('Invalid input!');
-        }
-        if (department == '' || department == null || department == undefined) {
-            throw new Errorr ('Invalid input!');
+        if (!this.departments.has(department)) {
+            this.departments.set(department, []);
         }
 
-        let classEmployee = Company.employee();
-        let employee = new classEmployee(username, salary, position);
+        let employee = new Company.Employee(username, salary, position);
+        let workers = this.departments.get(department);
+        workers.push(employee);
 
-        if (this.departments.hasOwnProperty(department)) {
-            this.departments[department].push(employee);
-        } else {
-            this.departments[department] = [];
-            this.departments[department].push(employee);
-        }
-
-        return `New employee is hired. Name: ${username}. Position: ${position}`
-
+        return `New employee is hired. Name: ${username}. Position: ${position}`;
     }
 
     bestDepartment() {
-        let result = [];
-        let avarageSalaries = {};
-        Object.keys(this.departments).forEach(department => {
-            avarageSalaries[department] = Company.avarageSalery(this.departments[department]);
-        });
-
-        let sortAvargeSalary = Object.keys(avarageSalaries).sort((a,b) => avarageSalaries[b] - avarageSalaries[a]);
-        result.push(`Best Department is: ${sortAvargeSalary[0]}`);
-        result.push(`Average salary: ${avarageSalaries[sortAvargeSalary[0]]}`);
-
-        let sortEmploys = this.departments[sortAvargeSalary[0]].sort((a,b) => {
-            if(a['salary'] - b['salary'] > 0) {
-                return -1;
-            } else if (a['salary'] - b['salary'] < 0) {
-                return 1;
-            } else {
-               return (a.username).localeCompare(b.username);
-            }
-        }).forEach(employee => {
-            result.push(`${employee.username} ${employee.salary} ${employee.position}`)
-        });
-
-        return result.join('\n');
 
     }
 
-    static avarageSalery(department) {
-        let totalSallary = 0; 
-        let count = 0
-        department.forEach(employee => {
-            totalSallary += employee.salary;
-            count++;
-        });
-
-        let avarageSalery = (totalSallary / count).toFixed(2);
-
-        return avarageSalery;
+    _avarageSallery(workers) {
+        workers.reduce((acc, employee) => {
+            
+        })
     }
-
 }
 
 let c = new Company();
