@@ -1,0 +1,34 @@
+{
+  "cats": [
+    {
+      "id": 1,
+      "name": "Navcho"
+    },
+    {
+      "id": 2,
+      "name": "Garry"
+    }
+  ],
+  "superheroes": [
+    {
+      "id": 1,
+      "name": "Thor",
+      "description": "The strongest avenger"
+    },
+    {
+      "id": 2,
+      "name": "Superman",
+      "description": "The strongest DC heroe"
+    },
+    {
+      "id": 3,
+      "name": "Sylvie",
+      "description": "Lady Loki"
+    },
+    {
+      "name": "Ironman",
+      "description": "I asm ironman, SNAP!",
+      "id": 4
+    }
+  ]
+}
