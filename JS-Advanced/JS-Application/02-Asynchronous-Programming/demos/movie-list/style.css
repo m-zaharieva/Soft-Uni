@@ -1,0 +1,7 @@
+.hide {
+    display: none;
+}
+
+#movie-list img {
+    width: 250px
+}
