@@ -1,3 +1,4 @@
+// load all recipes 
 async function getRecipes() {
     const response = await fetch('http://localhost:3030/jsonstore/cookbook/recipes');
     const recipes = await response.json();
@@ -5,6 +6,7 @@ async function getRecipes() {
     return Object.values(recipes);
 }
 
+// get ingredients for the current reciepe
 async function getRecipeById(id) {
     const response = await fetch('http://localhost:3030/jsonstore/cookbook/details/' + id);
     const recipe = await response.json();
@@ -12,6 +14,7 @@ async function getRecipeById(id) {
     return recipe;
 }
 
+// create recipe small preview card
 function createRecipePreview(recipe) {
     const result = e('article', { className: 'preview', onClick: toggleCard },
         e('div', { className: 'title' }, e('h2', {}, recipe.name)),
@@ -27,6 +30,7 @@ function createRecipePreview(recipe) {
     }
 }
 
+// create recipe extended card
 function createRecipeCard(recipe) {
     const result = e('article', {},
         e('h2', {}, recipe.name),
@@ -46,6 +50,7 @@ function createRecipeCard(recipe) {
     return result;
 }
 
+// function that executes when all page resourses are load
 window.addEventListener('load', async () => {
     const main = document.querySelector('main');
 
@@ -56,6 +61,7 @@ window.addEventListener('load', async () => {
     cards.forEach(c => main.appendChild(c));
 });
 
+// create DOM elements 
 function e(type, attributes, ...content) {
     const result = document.createElement(type);
 
