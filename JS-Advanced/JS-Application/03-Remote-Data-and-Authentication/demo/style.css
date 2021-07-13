@@ -1,0 +1,76 @@
+* {
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+}
+
+main {
+    width: 50%;
+    margin: auto;
+}
+
+h1 {
+    color: #333333;
+    border-bottom: 2px solid #cccccc;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #aaaaaa;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #aaaaaa;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+input[type="submit"],
+#show-all-movies {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 9px 30px;
+    border: none;
+    border-radius: 4px;
+}
+
+#show-all-movies {
+    margin-top: 20px;
+}
+
+#add-movie,
+#registration,
+#log-in,
+.show-movies {
+    background-color: #f3f3f3;
+    padding: 4px 20px 20px 20px;
+    margin-bottom: 20px;
+}
+
+.hide {
+    display: none;
+}
+
+.movie-header {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.movie-descr {
+    margin: 5px 0px;
+    color: #333333;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #cccccc;
+}

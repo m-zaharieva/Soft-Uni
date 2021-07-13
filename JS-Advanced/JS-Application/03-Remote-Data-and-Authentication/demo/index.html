@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Movies</title>
+</head>
+
+<body>
+    <main>
+        <h1>Best Movies</h1>
+
+        <section id="registration">
+            <h3>Registration</h3>
+            <form id="register-form">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" />
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" />
+                <input type="submit" value="Register">
+            </form>
+        </section>
+
+        <section id="log-in">
+            <h3>Log in</h3>
+            <form id="login-form">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" />
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" />
+                <input type="submit" value="Log-in">
+            </form>
+        </section>
+
+        <section id="add-movie" class="hide">
+            <h3>Add Movie</h3>
+            <form id="add-movie-form">
+                <label for="movie-title">Title</label>
+                <input type="text" id="movie-title" name="title" />
+                <label for="description">Description</label>
+                <textarea name="descriptopn" id="description"></textarea>
+                <input type="submit" value="Add Movie" />
+            </form>
+        </section>
+        <section class="show-movies hide">
+            <button id="show-all-movies">Show All Movies</button>
+            <article id="movie-list">
+                
+            </article>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
