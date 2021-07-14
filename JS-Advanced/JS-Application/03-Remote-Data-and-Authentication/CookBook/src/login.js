@@ -1,6 +1,6 @@
 let baseUrl = 'http://localhost:3030';
-let registerForm = document.querySelector('form');
-registerForm.addEventListener('submit', onLoginSubmit);
+let loginForm = document.querySelector('form');
+loginForm.addEventListener('submit', onLoginSubmit);
 
 async function onLoginSubmit(e) {
     e.preventDefault();
@@ -8,15 +8,8 @@ async function onLoginSubmit(e) {
     const registerData = new FormData(e.currentTarget);
     let email = registerData.get('email');
     let password = registerData.get('password');
-    let repeatedPassword = registerData.get('rePass');
 
-    if (email == '' || password == '') {
-        return alert('All fields are required!');
-    } else if (password !== repeatedPassword) {
-        return alert('Passwords don\'t match!')
-    }
-
-    let response = await fetch(`${baseUrl}/users/register`, {
+    let response = await fetch(`${baseUrl}/users/login`, {
         method: 'POST',
         headres: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })

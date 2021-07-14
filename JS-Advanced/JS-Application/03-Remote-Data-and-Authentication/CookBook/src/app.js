@@ -1,6 +1,6 @@
 // load all recipes 
 async function getRecipes() {
-    const response = await fetch('http://localhost:3030/jsonstore/cookbook/recipes');
+    const response = await fetch('http://localhost:3030/data/recipes?select=_id%2Cname%2Cimg');
     const recipes = await response.json();
 
     return Object.values(recipes);
@@ -8,7 +8,7 @@ async function getRecipes() {
 
 // get ingredients for the current reciepe
 async function getRecipeById(id) {
-    const response = await fetch('http://localhost:3030/jsonstore/cookbook/details/' + id);
+    const response = await fetch('http://localhost:3030/data/recipes/' + id);
     const recipe = await response.json();
 
     return recipe;
@@ -59,6 +59,11 @@ window.addEventListener('load', async () => {
 
     main.innerHTML = '';
     cards.forEach(c => main.appendChild(c));
+
+    const guestHeader = document.getElementById('guest');
+    const logedUsersHeader = document.getElementById('user');
+    showHeaderButtons(guestHeader, logedUsersHeader);
+
 });
 
 // create DOM elements 
@@ -85,4 +90,34 @@ function e(type, attributes, ...content) {
     });
 
     return result;
+
+}
+
+function showHeaderButtons(guestHeader, logedUsersHeader) {
+    const token = sessionStorage.getItem('userToken');
+    if (token !== null) {
+        logedUsersHeader.style.display = 'inline-block';
+        guestHeader.style.display = 'none';
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+    } else {
+        guestHeader.style.display = 'inline-block';
+        logedUsersHeader.style.display = 'none';
+    }
+}
+
+async function logout(e) {
+    const token = sessionStorage.getItem('userToken');
+    const response = await fetch(`http://localhost:3030/users/logout`, {
+        method: 'GET',
+        headers: { 'X-Authorization': token }
+    });
+
+    if (response.ok == false) {
+        const errorResponse = response.json();
+        const error = await errorResponse;
+        return alert(error.message);
+    }
+
+    sessionStorage.removeItem('userToken');
+    window.location.pathname = 'index.html';
 }
