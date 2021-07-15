@@ -1,4 +1,5 @@
 let baseUrl = 'http://localhost:3030/jsonstore/messenger';
+let textarea = document.querySelector('#messages');
 
 function attachEvents() {
     let submitButton = document.getElementById('submit');
@@ -35,6 +36,8 @@ function sendMessage(e) {
             return alert(error.message);
         })
 
+    textarea.value = textarea.value + `\n${name}: ${message}`;
+    
     nameInput.value = '';
     contentInput.value = '';
 }

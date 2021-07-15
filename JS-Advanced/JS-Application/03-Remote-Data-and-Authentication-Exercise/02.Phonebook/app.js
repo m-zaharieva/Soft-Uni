@@ -1,28 +1,26 @@
 let baseUrl = 'http://localhost:3030/jsonstore/phonebook';
 
-function attachEvents() {
-    let loadButton = document.getElementById('btnLoad');
-    loadButton.addEventListener('click', loadContacts);
+let loadButton = document.getElementById('btnLoad');
+loadButton.addEventListener('click', loadContacts);
 
-    let phonebookUl = document.getElementById('phonebook');
-    phonebookUl.addEventListener('click', deleteContact);
+let phonebookUl = document.getElementById('phonebook');
+phonebookUl.addEventListener('click', deleteContact);
 
-    let createButton = document.getElementById('btnCreate');
-    createButton.addEventListener('click', createContact);
-}
+let createButton = document.getElementById('btnCreate');
+createButton.addEventListener('click', createContact);
 
-attachEvents();
 
 function createContact(e) {
     let personInput = document.getElementById('person');
     personName = personInput.value;
     let phoneInput = document.getElementById('phone');
     phoneNumber = phoneInput.value;
+    let id = '';
 
     if (personName == '' || phoneNumber == '') {
         return alert('Both fields are required')
     }
-    
+
     fetch(`${baseUrl}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -31,8 +29,14 @@ function createContact(e) {
             phone: phoneNumber
         })
     })
+    .then(res => res.json())
+    .then(data=> {
+        id = data._id;
+    })
 
-    loadContacts()
+    let newContact = createLiContact(personName, phoneNumber, id);
+    phonebookUl.appendChild(newContact);
+    
     personInput.value = '';
     phoneInput.value = '';
 
@@ -56,30 +60,34 @@ function deleteContact(e) {
 }
 
 function loadContacts(e) {
-    let phonebookUl = document.getElementById('phonebook');
     let liElements = phonebookUl.querySelectorAll('li');
     Array.from(liElements).forEach(li => li.remove());
 
     fetch(`${baseUrl}`)
         .then(res => res.json())
         .then(contacts => {
-            Object.keys(contacts).forEach(contact => {
-                let name = contacts[contact].person;
-                let phoneNumber = contacts[contact].phone;
-                let id = contacts[contact]._id;
+            Object.values(contacts).forEach(contact => {
+                let name = contact.person;
+                let phoneNumber = contact.phone;
+                let id = contact._id;
 
-                let liElement = document.createElement('li');
-                liElement.textContent = `${name}:${phoneNumber}`;
-                liElement.setAttribute('data-person-id', id);
-
-                let deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Delete';
-
-                liElement.appendChild(deleteButton);
+                let liElement = createLiContact(name, phoneNumber, id);
                 phonebookUl.appendChild(liElement);
             })
         })
         .catch(error => {
             return alert('Couldn\'t load contacts')
         })
+}
+
+function createLiContact(name, phone, id) {
+    let liElement = document.createElement('li');
+    liElement.textContent = `${name}:${phone}`;
+    liElement.setAttribute('data-person-id', id);
+
+    let deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    liElement.appendChild(deleteButton);
+
+    return liElement;
 }
