@@ -75,8 +75,8 @@ describe('E2E tests', function () {
         const endpoint = '**' + endpoints.register;
         const email = 'marta@abv.bg';
         const password = '123456';
-
-        parent.route(endpoint, route => route.fullfill(json({ _id: '0002', email, accessToken: 'AAAA' })));
+        
+        await parent.route(endpoint, route => route.fullfill(json({ _id: '0002', email, accessToken: 'AAAA' })));
 
         await page.goto(host);
         await page.click('text-Register');
@@ -94,6 +94,4 @@ describe('E2E tests', function () {
         assert.equal(postData.email, email);
         assert.equal(postData.password, password);
     });
-
-    
 });
