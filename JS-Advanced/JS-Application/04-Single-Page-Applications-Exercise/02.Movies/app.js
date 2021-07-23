@@ -1,48 +1,33 @@
-import navigation from './static/scripts/nav.js';
-import login from './static/scripts/login.js';
-import registeration from './static/scripts/register.js';
-import changeViews from './changeViews.js';
-import getMovies from './static/scripts/home-page.js';
-import addMovieForm from './static/scripts/addMovie.js';
+import viewsHandler from "./helpers/viewsHandler.js";
+import home from "./pages/home-page.js";
+import nav from "./pages/nav.js";
 
-// main wrapper 
-let main = document.getElementById('main');
 
-// navigation 
-let navigationElement = document.getElementById('navigation');
-
-// home view 
-let homePage = document.getElementById('home-page');
-let titleMovie = homePage.nextElementSibling;
-let addMovieButton = document.getElementById('add-movie-button');
-let movieSection = document.getElementById('movie');
-
-// add movie view
+let mainWrapper = document.getElementById('main');
+let homePage = document.getElementById('home-page')
+let allMovies = document.getElementById('movie');
+let navigation = document.getElementById('navigation');
+let loginPage = document.getElementById('form-login');
+let registrationPage = document.getElementById('form-sign-up');
+let edinMoviePage = document.getElementById('edit-movie');
+let movieDetailsPage = document.getElementById('movie-example');
 let addMovie = document.getElementById('add-movie');
+let allLinks = document.querySelectorAll('.link');
 
-// edit movie view
-let editMovie = document.getElementById('edit-movie');
+[...mainWrapper.children].forEach(el => el.remove());
 
-// login view
-let loginForm = document.getElementById('form-login');
-
-// register view
-let registracionForm = document.getElementById('form-sign-up');
-
-let movieExample = document.getElementById('movie-example');
-
-Array.from(main.children).forEach(el => el.remove());
+setUp()
+function setUp() {
+    home.initialize(homePage);
+    nav.initialize(navigation);
+    viewsHandler.initialize(allLinks);
 
 
-function setup() {
-    addMovieForm()
-    changeViews.showHomePage();
-    getMovies.getMovies()
-    navigation.initialize(navigationElement);
-    login.initialize(loginForm);
-    registeration.initialize(registracionForm);
-   
+    viewsHandler.changeView('home', mainWrapper)
 }
-setup()
+
+
+
+
 
 
