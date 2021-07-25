@@ -1,5 +1,3 @@
-import auth from "../../Innos/02Movies/src/services/authService.js";
-
 let section = undefined;
 
 function initialize(domElement) {
@@ -10,9 +8,9 @@ function getView() {
     return section;
 }
 
-let nav = {
+let editMovie = {
     initialize,
-    getView,
+    getView
 }
 
-export default nav;
+export default editMovie;

@@ -49,6 +49,7 @@ function createHtmlMovie(movie) {
     let cardFooterDiv = ce('div', { class: 'card-footer' }, linkAnchor);
 
     let movieCardDiv = ce('div', { class: 'card mb-4 movie' }, movieImg, cardBodyDiv, cardFooterDiv);
+    
     return movieCardDiv;
 }
 
