@@ -1,42 +1,30 @@
-import { html, render} from '../node_modules/lit-html/lit-html.js';
-import templates from './templates.js';
+import { html, render } from '../node_modules/lit-html/lit-html.js';
+import { messageTemplate, townsTemplate } from './templates.js';
 import { towns } from './towns.js';
 
-function setUp(towns) {
-   let allLi = [];
-   towns.forEach(town => {
-      allLi.push(templates.listItems(town));
-   });
-   let result = templates.ul(allLi);
-   render(result, document.querySelector('#towns'));
+let townsDiv = document.getElementById('towns');
+let baseTowns = towns.map(t => ({ name: t }));
+render(townsTemplate(baseTowns), townsDiv);
+
+let searchButton = document.getElementById('search-btn');
+searchButton.addEventListener('click', search);
+
+
+function search(e) {
+   let input = document.getElementById('searchText');
+   let searchText = input.value.toLowerCase();
+
+   let allTowns = towns.map(t => ({ name: t }));
+   let matchedTowns = allTowns.filter(t => t.name.toLowerCase().includes(searchText));
+   matchedTowns.forEach(t => t.class = 'active');
+
+   render(townsTemplate(allTowns), townsDiv);
+
+   let matches = matchedTowns.length;
+   let resultDiv = document.getElementById('result');
+   render(messageTemplate(matches), resultDiv);
 }
-setUp(towns)
 
-function search() {
-   let button = document.querySelector('button');
-   button.addEventListener('click', searchTown);
 
-}
-search();
 
-function searchTown(e) {
-   let parent = e.target.closest('article');
-   let input = parent.querySelector('input');
-   let searchValue = input.value.toLowerCase();
 
-   let liArr = parent.querySelectorAll('li');
-   let matches = 0;
-   liArr.forEach(li => {
-      if (li.textContent.toLowerCase().includes(searchValue)) {
-         li.classList.add('active');
-         matches++;
-      } else if (!li.textContent.toLowerCase().includes(searchValue)) {
-         li.classList.remove('active');
-      }
-   });
-
-   let resultDiv = document.querySelector('#result');
-   resultDiv.textContent = `${matches} matches found.`
-
-   input.value = '';
-}

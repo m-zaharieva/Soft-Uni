@@ -1,5 +1,5 @@
 
-function showCodeHandler(e) {
+export function showCodeHandler(e) {
     let button = e.target;
     let infoBlock = e.target.closest('.info');
     let statusBlock = infoBlock.querySelector('.status');
@@ -7,9 +7,3 @@ function showCodeHandler(e) {
     button.textContent = button.textContent == 'Show status code' ? 'Hide status code' : 'Show status code';
 
 }
-
-let events = {
-    showCodeHandler,
-}
-
-export default events;

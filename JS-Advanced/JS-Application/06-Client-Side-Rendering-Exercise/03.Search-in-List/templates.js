@@ -1,20 +1,15 @@
-import {html} from '../node_modules/lit-html/lit-html.js';
+import { html } from '../node_modules/lit-html/lit-html.js';
+import { ifDefined } from './../node_modules/lit-html/directives/if-defined.js'
 
-let listItems = (town) => {
-    return html ` 
-        <li>${town}</li>
-        `
-}
+export let townTemplate = (town) => html`
+<li class="${ifDefined(town.class)}">${town.name}</li>
+`;
 
-let ul = (body) => {
-    return html `
-        <ul>${body}</ul>
-    `
-}
+export let townsTemplate = (towns) => html`
+<ul>
+    ${towns.map(t => townTemplate(t))}
+</ul>`;
 
-let templates = {
-    listItems,
-    ul
-}
-
-export default templates;
+export let messageTemplate = (matches) => html`
+<span>${matches} matches found</span>
+`;

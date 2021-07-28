@@ -1,25 +1,16 @@
 import { html } from '../node_modules/lit-html/lit-html.js';
 
-let townsTemplate = (array) => {
-    let result = [];
-    array.forEach(town => {
-        result.push(html`
+let townTemplate = (town) => html`
             <li>${town}</li>
-        `);
-    });
-    return result;
-}
+        `;
 
-let ulTemplate = (body) => {
-    let parentUl =
-        html`
-        <ul>${body}</ul>
-    `
-    return parentUl;
-}
+let ulTemplate = (towns) => html`
+        <ul>
+            ${towns.map(t => townTemplate(t))}
+        </ul>
+    `;
 
 let templates = {
-    townsTemplate,
     ulTemplate,
 }
 export default templates;
