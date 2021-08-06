@@ -1,11 +1,6 @@
 import { renderPage } from "./../../services/renderService.js";
 import { homeTemplate } from "./homeTemplate.js";
 
-let parentEl = undefined;
-
-function initialize(wrapper) {
-    parentEl = wrapper;
-}
  
 async function getView(context){
     let templateResult = homeTemplate();
@@ -13,6 +8,5 @@ async function getView(context){
 }
 
 export default {
-    initialize,
     getView
 }
