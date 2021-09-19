@@ -21,9 +21,9 @@ function getView(ctx) {
     let userId = userData ? userData._id : undefined;
     getOneBook(bookId) 
         .then(data => console.log(data));
-    Promise.all([getOneBook(bookId), _likesService.likesCount(bookId), _likesService.currentUserLikeSpecificBook(bookId, userId)])
-        .then(([book, likesCount, currentUserLikes]) => {
-            let templateResult = detailsTemplate(book, userData, likesCount, currentUserLikes, (e) => deleteHandler(bookId, e), (e) => likesHandler(bookId, e));
+    Promise.all([getOneBook(bookId), _likesService.likesCount(bookId) /*_likesService.currentUserLikeSpecificBook(bookId, userId)*/])
+        .then(([book, likesCount/*, currentUserLikes*/]) => {
+            let templateResult = detailsTemplate(book, userData, likesCount/*, currentUserLikes*/, (e) => deleteHandler(bookId, e), (e) => likesHandler(bookId, e));
             _render(templateResult);
         })
 }

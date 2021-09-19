@@ -1,4 +1,3 @@
-import { likesCount } from '../../services/likesService.js';
 import { html } from './../../../node_modules/lit-html/lit-html.js';
 
 export let detailsTemplate = (book, userData, likesCount, currentUserLikes, deleteHandler, likesHandler) => html`
