@@ -5,6 +5,7 @@ let app = http.createServer((req, res) => {
     switch(req.url) {
         case '/': 
             res.write('<h1>Homepage</h1><a href="/cats">Cats</a>');
+            res.end();
         break;
         case '/cats':
             res.writeHead(200, {
@@ -12,19 +13,31 @@ let app = http.createServer((req, res) => {
             })
             let result = fs.readFileSync('./views/cats.html');
             res.write(result);
+            res.end();
             break;
-        case '/img/cat.jpg':
+        case '/img/cat.png':
             res.writeHead(200, {
-                'Content-Type': 'image/jpeg'
+                'Content-Type': 'image/png'
             });
 
-            // TODO: finish with stream
+            let catStream = fs.createReadStream('./img/cat.png');
+
+            // catStream.on('data', (chunk) => {
+            //     res.write(chunk);
+            // });
+
+            // catStream.on('end', () => {
+            //     res.end();
+            // });
+
+            catStream.pipe(res);
+
             break;
         default:
-            res.write('Error page 404')
+            res.write('Error page 404');
+            res.end();
             break;
     }
-    res.end();
 });
 
 app.listen(5000);

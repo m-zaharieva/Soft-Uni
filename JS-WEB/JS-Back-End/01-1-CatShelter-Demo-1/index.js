@@ -1,6 +1,8 @@
 const http = require('http');
 const fs = require('fs');
 
+const port = 5000;
+
 let app = http.createServer((req, res) => {
     switch(req.url) {
         case '/':
@@ -34,6 +36,6 @@ let app = http.createServer((req, res) => {
         res.end();
 });
 
-app.listen(5000);
+app.listen(port);
 
 console.log('App is running on port 5000 ... ');
