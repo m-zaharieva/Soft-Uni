@@ -3,8 +3,8 @@ const url = require('url');
 const path = require('path');
 const formidable = require('formidable');
 
-const breeds = require('../data/breeds.json');
-const cats = require('../data/cats.json');
+const breeds = require('./../data/breeds.json');
+const cats = require('./../data/cats.json');
 const storageService = require('./../handlers/storageService.js');
 
 module.exports = (req, res) => {
@@ -24,10 +24,12 @@ module.exports = (req, res) => {
                 return;
             }
 
+            let catBreedPlaceholder = breeds.map(breed => `<option value="${breed}">${breed}</option>`);
+            let modifiedData = data.toString().replace('{{breeds}}', catBreedPlaceholder);
             res.writeHead(200, {
                 'Content-Type': 'text/html'
             });
-            res.write(data);
+            res.write(modifiedData);
             res.end();
         });
 
@@ -76,6 +78,20 @@ module.exports = (req, res) => {
             'Location': '/'
         })
         res.end();
+    } else if (pathname == '/cats/add-cat' && req.method == 'POST') {
+        const form = formidable.IncomingForm();
+
+        form.parse(req, (err, fields, files) => {
+            if (err) return err;  
+            
+            console.log(files);
+            
+            let uniqId = cats.length + 1; 
+            fields.id = uniqId;
+            
+            console.log(fields);
+        });
+
     } else {
         return true;
     }
