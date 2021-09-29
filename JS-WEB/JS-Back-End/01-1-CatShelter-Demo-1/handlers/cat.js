@@ -80,6 +80,7 @@ module.exports = (req, res) => {
         res.end();
     } else if (pathname == '/cats/add-cat' && req.method == 'POST') {
         const form = formidable.IncomingForm();
+        let filePath = path.normalize(path.join(__dirname, './../data.cats.json'));
 
         form.parse(req, (err, fields, files) => {
             if (err) return err;  
@@ -88,8 +89,30 @@ module.exports = (req, res) => {
             
             let uniqId = cats.length + 1; 
             fields.id = uniqId;
+            let oldPath = files.upload.path;
+            let newPath = path.normalize(path.join(__dirname, './../images/' + files.upload.name));
+
+            fs.rename(oldPath, newPath, (err) => {
+                if (err) return err;
+                console.log('File was uploaded successfully');
+            });
             
-            console.log(fields);
+            fs.readFile(filePath, (err, data) => {
+                if (err) return err;
+                
+                let allCats = JSON.parse(cats);
+                allCats.push({id: cats.length +1, ...fields, image: files.upload.name});
+                let updatedCats = JSON.stringify(allCats);
+
+                fs.writeFile(filePath, updatedCats, (err) => {
+                    if (err) return err; 
+
+                    res.writeHead(302, {
+                        'Location': '/',
+                    });
+                    res.end();
+                })
+            })
         });
 
     } else {
