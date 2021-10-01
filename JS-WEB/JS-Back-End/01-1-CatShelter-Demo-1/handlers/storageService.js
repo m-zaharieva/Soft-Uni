@@ -22,9 +22,25 @@ const saveCat = (catObj) => {
     return fs.writeFile(filePath, result);
 }
 
+const editCat = (catObj) => {
+    catsDB.map(cat => {
+        if (cat.id == catObj.id) {
+            Object.keys(cat).forEach(key => {
+                if (catObj[key]) {
+                    cat[key] = catObj[key];
+                }
+            });
+        }
+    });
+    let result = JSON.stringify(catsDB, null, 2);
+    let filePath = path.normalize(path.join(__dirname, './../data/cats.json'))
+    return fs.writeFile(filePath, result);
+}
+
 const storageService = {
     saveBreed,
-    saveCat
+    saveCat,
+    editCat,
 }
 
 module.exports = storageService;

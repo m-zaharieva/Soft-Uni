@@ -73,22 +73,25 @@ module.exports = (req, res) => {
                     res.end();
                 });
         });
-        
+
         res.writeHead(302, {
             'Location': '/'
         })
         res.end();
+
     } else if (pathname == '/cats/add-cat' && req.method == 'POST') {
         const form = formidable.IncomingForm();
-        let filePath = path.normalize(path.join(__dirname, './../data.cats.json'));
 
         form.parse(req, (err, fields, files) => {
-            if (err) return err;  
-            
-            console.log(files);
-            
-            let uniqId = cats.length + 1; 
-            fields.id = uniqId;
+            if (err) {
+                res.writeHead(err.httpCode || 400, {
+                    'Content-Type': 'text/plain'
+                });
+                res.write('Error');
+                res.end(String(err));
+                return;
+            }
+
             let oldPath = files.upload.path;
             let newPath = path.normalize(path.join(__dirname, './../images/' + files.upload.name));
 
@@ -96,24 +99,99 @@ module.exports = (req, res) => {
                 if (err) return err;
                 console.log('File was uploaded successfully');
             });
-            
-            fs.readFile(filePath, (err, data) => {
-                if (err) return err;
-                
-                let allCats = JSON.parse(cats);
-                allCats.push({id: cats.length +1, ...fields, image: files.upload.name});
-                let updatedCats = JSON.stringify(allCats);
 
-                fs.writeFile(filePath, updatedCats, (err) => {
-                    if (err) return err; 
+            let catObj = { id: cats.length + 1, ...fields, image: files.upload.name };
 
-                    res.writeHead(302, {
-                        'Location': '/',
-                    });
+            storageService.saveCat(catObj)
+                .then(() => {
                     res.end();
-                })
+                });
+
+            res.writeHead(302, {
+                'Location': '/'
             })
+            res.end();
         });
+    
+    } else if (pathname.includes('/cats-edit') && req.method == 'GET') {
+        let pattern = /[0-9]+/;
+        let matches = pathname.match(pattern);
+        let id = matches[0];
+
+        let filePath = path.normalize(path.join(__dirname, './../views/editCat.html'));
+        fs.readFile(filePath, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.writeHead(404, {
+                    'Content-Type': 'text/html',
+                });
+                res.write('404 Not Found');
+                res.end();
+                return;
+            }
+
+            let catBreedPlaceholder = breeds.map(breed => `<option value="${breed}">${breed}</option>`);
+            let modifiedData = data.toString().replace('{{breeds}}', catBreedPlaceholder);
+
+            cats.map(cat => {
+                if (cat.id == id) {
+                    
+                    let templatePattern = /\{\{(?<text>[a-z]+)\}\}/g;
+                    let templateResult = modifiedData.toString().matchAll(templatePattern);
+
+                    Array.from(templateResult).map((arr) => {
+                        modifiedData = modifiedData.toString().replace(arr[0], cat[`${arr[1]}`]);
+
+                    })
+                }
+            });
+
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            res.write(modifiedData);
+            res.end();
+
+        });
+
+    } else if (pathname.includes('/cats-edit') && req.method == 'POST') {
+        let pattern = /[0-9]+/;
+        let matches = pathname.match(pattern);
+        let id = matches[0];
+
+        const form = formidable.IncomingForm();
+        form.parse(req, (err, fields, files) => {
+            if (err) {
+                console.log(err);
+                res.writeHead(err.httpCode || 400, {
+                    'Content-Type': 'text/plain',
+                });
+                res.write('Error');
+                res.end(String(err));
+                return;
+            }
+
+            let oldPath = files.upload.path;
+            let newPath = path.normalize(path.join(__dirname, './../images/' + files.upload.name));
+
+            fs.rename(oldPath, newPath, (err) => {
+                if (err) return err;
+                console.log('File was uploaded successfully');
+            });
+
+            console.log({...fields});
+            let catObj = {id: id, ...fields, image: files.upload.name };
+
+            storageService.editCat(catObj)
+                .then(() => {
+                    res.end();
+                });
+
+            res.writeHead(302, {
+                'Location': '/'
+            })
+            res.end();
+        })
 
     } else {
         return true;
