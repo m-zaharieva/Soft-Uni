@@ -1,0 +1,18 @@
+    <main>
+        <section class="cats">
+            <ul>
+                {{#each cats}}
+                    <li>
+                    <img src="/public/images/{{this.file}}" alt="{{this.name}}">
+                    <h3></h3>
+                    <p><span>Breed: </span>{{this.breed}}</p>
+                    <p><span>Description: </span>{{this.description}}</p>
+                    <ul class="buttons">
+                        <li class="btn edit"><a href="/cats/edit/{{this.id}}">Change Info</a></li>
+                        <li class="btn delete"><a href="/cats/shelter/{{this.id}}">New Home</a></li>
+                    </ul>
+                </li>
+                {{/each}}
+            </ul>
+        </section>
+    </main>

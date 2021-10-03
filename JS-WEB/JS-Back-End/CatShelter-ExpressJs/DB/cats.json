@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Navcho",
+    "description": "Fluffy",
+    "breed": "Persian",
+    "file": "cat-3591348_1280.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Rita ",
+    "description": "Cutty ",
+    "breed": "Angora",
+    "file": "cute-cat.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Tom",
+    "description": "hmm... verry noizy ",
+    "breed": "Fluffy One",
+    "file": "cat-2083492_1280.webp"
+  }
+]
