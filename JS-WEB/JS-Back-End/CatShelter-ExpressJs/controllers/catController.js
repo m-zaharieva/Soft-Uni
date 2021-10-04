@@ -20,6 +20,18 @@ router.get('/add-cat', (req, res) => {
     })
 });
 
+router.get('/edit/:catId', (req, res) => {
+    console.log(req.params.catId); 
+    let currentCat = cats.filter(c => c.id == req.params.catId)[0];
+    res.render('editCat', {currentCat});
+});
+
+router.get('/shelter/:catId', (req, res) => {
+    console.log(req.params.catId); 
+    let currentCat = cats.filter(c => c.id == req.params.catId)[0];
+    res.render('catShelter', {currentCat});
+});
+
 router.post('/add-cat', (req, res, next) => {
     let form = formidable({ multiples: true });
     form.parse(req, (err, fields, files) => {
@@ -55,10 +67,23 @@ router.post('/add-breed', (req, res, next) => {
     })
 });
 
-router.get('/edit/:catId', (req, res) => {
+
+router.post('/edit/:catId', (req, res, next) => {
+    let form = formidable({multiples: true});
+    form.parse(req, (err, fileds, files) => {
+        if (err) {
+            next(err);
+            return;
+        }
+        let catId = req.params.catId;
+    });
+});
+
+router.delete('/shelter/:catId', (req, res) => {
     console.log(req.params.catId); 
-    res.render('editCat');
-})
+    let currentCat = cats.filter(c => c.id == req.params.catId)[0];
+    res.render('catShelter', {currentCat});
+});
 
 
 
