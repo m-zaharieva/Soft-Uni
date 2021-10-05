@@ -12,6 +12,27 @@ let catSaver = (catObj) => {
     return fs.writeFile(publicFilesDir, result);
 }
 
+let catEditer = (catId, catData) => {
+    let publicFilesDir = path.join(__dirname, './../DB/cats.json');
+    cats.map(x => {
+        if (x.id == catId) {
+            if (catData.name != x.name) {
+                x.name = catData.name;
+            }
+            if (catData.description != x.description) {
+                x.description = catData.description;
+            }
+            if (catData.breed != x.breed) {
+                x.breed = catData.breed;
+            }
+            if (!catData.file == '') {
+                x.file = catData.file;
+            }
+        }
+    });
+    console.log(cats);
+}
+
 let breedSaver = (breed) => {
     let publicFilesDir = path.join(__dirname, './../DB/breeds.json');
     breeds.push(breed);
@@ -23,6 +44,7 @@ let breedSaver = (breed) => {
 let result = {
     catSaver,
     breedSaver,
+    catEditer,
 }
 
 module.exports = result;

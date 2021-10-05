@@ -68,18 +68,26 @@ router.post('/add-breed', (req, res, next) => {
 });
 
 
-router.post('/edit/:catId', (req, res, next) => {
+router.put('/edit/:catId', (req, res) => {
+    console.log('PUT reuest to edit cat');
+    
     let form = formidable({multiples: true});
-    form.parse(req, (err, fileds, files) => {
+    form.parse(req, (err, fields, files) => {
         if (err) {
             next(err);
             return;
         }
         let catId = req.params.catId;
+        let formData = {...fields, file: files.upload.name};
+
+        dataManager.catEditer(catId, formData);
     });
+    res.redirect('/');
+    res.end();
 });
 
 router.delete('/shelter/:catId', (req, res) => {
+    // TODO
     console.log(req.params.catId); 
     let currentCat = cats.filter(c => c.id == req.params.catId)[0];
     res.render('catShelter', {currentCat});

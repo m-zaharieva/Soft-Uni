@@ -1,15 +1,15 @@
     <main>
-        <form action="cats/edit/{{currentCat.id}}" method="POST" class="cat-form" enctype="multipart/form-data">
+        <form action="/cats/edit/{{currentCat.id}}" method="PUT" class="cat-form" enctype="multipart/form-data">
             <h2>Edit Cat</h2>
             <label for="name">Name</label>
-            <input type="text" id="name" value="{{currentCat.name}}">
+            <input type="text" id="name" .value="{{currentCat.name}}">
             <label for="description">Description</label>
             <textarea id="description">{{currentCat.description}}</textarea>
             <label for="image">Image</label>
             <input type="file" id="image" name="upload">
             <label for="group">Breed</label>
-            <select id="group" value="{{currentCat.breed}}">
-                <option value="{{currentCat.breed}}">{{currentCat.breed}}</option>
+            <select id="group" .value="{{currentCat.breed}}">
+                <option .value="{{currentCat.breed}}">{{currentCat.breed}}</option>
             </select>
             <button type="submit">Edit Cat</button>
         </form>
