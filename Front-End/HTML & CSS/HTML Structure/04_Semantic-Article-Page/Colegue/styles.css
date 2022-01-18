@@ -1,0 +1,24 @@
+body{
+    background-color: #e4e978;
+}
+article{
+    background-color: #f2f4c0;
+    border: 1px solid #b2ad7d;
+    margin: 15px 10px;
+    padding: 5px 15px;
+}
+section{
+	padding: 5px, 15px;
+    margin: 15px, 10px;
+    color: rgb(138, 185, 162);
+}
+.article {
+    font-style: italic;
+}
+.article #h1{
+    font-size: 32px;
+   
+}
+h1{
+    font-size: 32px;
+}
